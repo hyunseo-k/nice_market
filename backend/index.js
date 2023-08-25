@@ -68,13 +68,80 @@ app.post('/dup', (req, res) => {
     });
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// app.post('/order', (req, res) => {
+//   // console.log(req.body);
+//   const { resultMsg, amount, paidAt, cardName } = req.body;
+//   console.log(amount);
+//   if(resultMsg==="정상 처리되었습니다."){
+//     res.send("결제에 성공했습니다.");
+//   } else {
+//     res.send("결제에 실패하였습니다.");
+//   }
+// });
+
+// app.post('/make-order', (req, res) => {
+//   // console.log(req.body);
+//   const { resultMsg, amount, paidAt, cardName } = req.body;
+//   console.log(amount);
+//   if(resultMsg==="정상 처리되었습니다."){
+//     res.send("결제에 성공했습니다.");
+//   } else {
+//     res.send("결제에 실패하였습니다.");
+//   }
+// });
+const random = (length = 8) => {
+  return Math.random().toString(16).substr(2, length);
+};
+
+app.post('/done-order', async (req, res) => {
+  const { resultMsg, amount, paidAt } = req.body;
+  console.log("rr", paidAt);
+})
+
+app.post('/make-order', async (req, res) => {
+  var id = random();
+  const { totalPrice } = req.body;
+  try {
+    const url = 'https://sandbox-api.nicepay.co.kr/v1/checkout';
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic UzFfY2UxYmIxZWJlYmM0NGZlMWEzZjdjZWM5NzZjODNlYTc6MTNlOTY5YTc3YTA1NDU3OTkyNDJjY2MzOTE1MjQzZDM='
+    };
+    const data = {
+      "method": "all",
+      "sessionId": id,
+      "orderId": id,
+      "clientId": "S1_ce1bb1ebebc44fe1a3f7cec976c83ea7",
+      "amount": totalPrice,
+      "goodsName": "test",
+      "returnUrl": "http://localhost:3000/done-order",
+      "language": "EN",
+      "fakeAuth": "true",
+    };
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+    // console.log('Response:', responseData);
+    res.status(200).json({ responseData });
+    // 응답 처리 코드 추가
+
+  } catch (error) {
+    console.error('Error making order:', error);
+    res.status(500).send("오류가 발생하였습니다.");
+  }
+});
+
 
 app.post('/:user_id/add', (req, res) => {
   const { user_id } = req.params;
   const { product_id, quantity } = req.body;
-
-  // 이 부분에서 카트 정보 업데이트 로직을 작성하세요.
-  // 쿼리를 통해 해당 사용자의 카트 정보를 업데이트하고, 새로운 제품을 추가합니다.
 
   const updateQuery  = `
     UPDATE Users
