@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "baseUrl": "./",
+    "traceResolution": true,
+    "paths": {
+      "@types/react": [
+        "node_modules/@types/react"
+      ],
+      "@types/react-native": [
+        "node_modules/@types/react-native"
+      ]
+    }
+  },
+  "extends": "expo/tsconfig.base"
+}
