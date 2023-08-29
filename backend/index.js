@@ -222,7 +222,7 @@ app.post('/:user_id/add', (req, res) => {
     UPDATE Users
     SET cart = JSON_ARRAY_APPEND(cart, '$', JSON_OBJECT('product_id', ?, 'quantity', ?))
     WHERE user_id = ?
-  `;
+  `; 
 
   db.query(updateQuery, [product_id, quantity, user_id], (updateErr, updateResult) => {
     // console.error("up2", product_id);
