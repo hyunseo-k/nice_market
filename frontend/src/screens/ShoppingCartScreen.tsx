@@ -54,7 +54,8 @@ export default function ShoppingCartScreen(props: ShoppingCartScreenProps) {
     let cartItems: CartItem[] = [];
 
     try {
-      cartItems = JSON.parse(cart);
+      // cartItems = JSON.parse(cart);
+      cartItems = cart;
     } catch (error) {
       console.error('Error parsing cart:', error);
     }
@@ -96,7 +97,7 @@ export default function ShoppingCartScreen(props: ShoppingCartScreenProps) {
 
   const makeOrder = async () => {
     try {
-      const response = await fetch("http://localhost:3000/make-order", {
+      const response = await fetch("http://34.64.33.83:3000/make-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +123,7 @@ export default function ShoppingCartScreen(props: ShoppingCartScreenProps) {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch("http://localhost:3000/cart-delete", {
+      const response = await fetch("http://34.64.33.83:3000/cart-delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +159,7 @@ export default function ShoppingCartScreen(props: ShoppingCartScreenProps) {
 //       "clientId" : "S1_ce1bb1ebebc44fe1a3f7cec976c83ea7",
 //       "amount": 1004,
 //       "goodsName" : "test",
-//       "returnUrl": "http://localhost:3000/order",
+//       "returnUrl": "http://34.64.33.83:3000/order",
 //       "language" : "EN",
 //       "fakeAuth": "true",
 //     };

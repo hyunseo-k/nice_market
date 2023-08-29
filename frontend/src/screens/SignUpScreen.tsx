@@ -25,7 +25,7 @@ export default function SignUpScreen(props: SignUpScreenProps) {
 
   const handleSignUp = async () => {
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('http://34.64.33.83:3000/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export default function SignUpScreen(props: SignUpScreenProps) {
 
   const handleDup = async () => {
     try {
-      const response = await fetch('http://localhost:3000/dup', {
+      const response = await fetch('http://34.64.33.83:3000/dup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

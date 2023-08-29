@@ -34,7 +34,7 @@ export default function SignInScreen(props: SignInScreenProps) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://34.64.33.83:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

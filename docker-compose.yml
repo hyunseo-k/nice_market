@@ -1,0 +1,62 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "19006:19006"  
+      - "19001:19001" 
+      - "19002:19002"  
+    environment:
+      - NODE_ENV=development  # Watch for changes in volumes
+    tty: true
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3000:3000"  # Node.js app port
+    command:
+      - sh
+      - -c
+      - '/wait-for-it.sh database:3306 -- node index.js'
+    environment:
+      WAIT_HOSTS: database:3306
+    depends_on:
+      - database
+    networks:
+      - mysql_db
+
+  database:
+    image: mysql:latest
+    restart: always
+    container_name: nice_db
+    environment:
+      MYSQL_ROOT_PASSWORD: "Rkdgustj7!"
+      MYSQL_DATABASE: "nice"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "Rkdgustj7!"
+      # MYSQL_ROOT_HOST: '%'
+      # MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    command: 
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    ports:
+      - "3306:3306"  # MySQL 포트
+    volumes:
+      - ./db-data:/var/lib/mysql  # 데이터베이스 데이터 유지
+    networks:
+      - mysql_db
+
+volumes:
+  db-data:
+networks:
+    mysql_db:

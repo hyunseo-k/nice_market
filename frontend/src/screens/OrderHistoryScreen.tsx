@@ -23,7 +23,8 @@ export default function OrderHistoryScreen(props: OrderHistoryScreenProps) {
     let cartItems: Order[] = [];
 
     try {
-      cartItems = JSON.parse(user_order);
+      // cartItems = JSON.parse(user_order);
+      cartItems = user_order;
       console.log("cart_items", cartItems);
     } catch (error) {
       console.error('Error parsing cart:', error);

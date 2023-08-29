@@ -44,7 +44,7 @@ const ProductDetailScreen = ({ route }: ProductDetailScreenProps) => {
   const addToCart = async () => {
     try {
       // console.log("user", user)
-      const response = await fetch(`http://localhost:3000/${user.user_id}/add`, {
+      const response = await fetch(`http://34.64.33.83:3000/${user.user_id}/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

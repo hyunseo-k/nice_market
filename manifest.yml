@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nice-market-frontend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: frontend
+  template:
+    metadata:
+      labels:
+        component: frontend
+    spec:
+      containers:
+        - name: nice-market-frontend
+          image: nice_market-frontend:latest
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nice-market-frontend-service
+spec:
+  selector:
+    component: frontend 
+  ports:
+    - protocol: TCP 
+      port: 80 
+      targetPort : 19006
+  
+---
+
+apiVersion : apps/v1 
+kind : Deployment 
+metadata :
+   name : nice-market-backend-deployment 
+spec :
+   replicas : 3  
+   selector :
+     matchLabels :
+       component : backend  
+   template :
+     metadata :
+       labels :
+         component : backend  
+     spec :
+       containers :
+         - name : nice-market-backend  
+           image : nice_market-backend
+
+---
+
+apiVersion:v1   
+kind : Service   
+metadata :
+   name:nice-market-backend-service   
+spec :
+
+selector :
+
+component : backend  
+
+ports :
+
+protocol:TCP  
+
+port:3000
+
+targetPort:3000
+
+---
+
+apiVersion:v1    
+kind:servicename:mysql-service     
+metadata:name:mysql-deployment     
+# spec:
+
+# replicas:<mysql_replica_count>
+
+selector:
+
+matchLabels:
+
+component:mysql
+
+template:
+
+metadata:
+
+labels:
+
+component:mysql
+
+spec :
+
+containers :
+
+name:mysql-image-name   
+
+image:mysql   
+
+ports :
+
+containerPort:3306
+
+# envFrom :
+
+# configMapRef:name:<mysql_config_map_name>
+
+# secretRef:name:<mysql_secret_name>
+
+---
+
+apiVersion:v1    
+
+kind:servicename:mysql-service     
+
+selector :
+
+component:mysql    
+
+ports :
+
+protocol:TCP  
+
+port:3306
+
+targetPort:3306

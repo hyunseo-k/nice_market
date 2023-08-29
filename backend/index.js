@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mysql = require('mysql');
-const { useWindowDimensions } = require('react-native-web');
+const mysql = require('mysql2');
+// const { useWindowDimensions } = require('react-native-web');
+const fetch = require('node-fetch');
 
 const app = express();
 const port = 3000; // Choose a port number
@@ -11,10 +12,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'nice_db',
   user: 'root',
   password: 'Rkdgustj7!',
   database: 'nice',
+  // insecureAuth: true,
 });
 
 db.connect((err) => {
@@ -189,7 +191,7 @@ app.post('/make-order', async (req, res) => {
       "clientId": "S1_ce1bb1ebebc44fe1a3f7cec976c83ea7",
       "amount": totalPrice,
       "goodsName": productName,
-      "returnUrl": "http://localhost:3000/done-order",
+      "returnUrl": "http://34.64.33.83:3000/done-order",
       "language": "EN",
       "fakeAuth": "true",
     };
