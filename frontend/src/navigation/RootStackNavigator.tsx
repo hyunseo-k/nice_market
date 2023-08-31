@@ -7,6 +7,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import ShoppingCartScreen from '../screens/ShoppingCartScreen';
 import PaymentWebView from '../screens/PaymentWebView';
+import OrderHistoryScreen from '../screens/OrderHistoryScreen';
 const Stack = createStackNavigator();
 
 export default function RootStackNavigator() {
@@ -18,6 +19,7 @@ export default function RootStackNavigator() {
       <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen} />
       <Stack.Screen name="ShoppingCartScreen" component={ShoppingCartScreen} />
       <Stack.Screen name="PaymentWebView" component={PaymentWebView} />
+      <Stack.Screen name="OrderHistoryScreen" component={OrderHistoryScreen} />
     </Stack.Navigator>
   );
 }

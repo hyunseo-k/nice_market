@@ -55,8 +55,10 @@ app.post('/login', (req, res) => {
       res.status(401).json({ message: 'Invalid credentials' });
     } else {
       user = result[0];
+      
       // res.status(200).json({ message: 'Login successful', user: result[0] });
       const token = jwt.sign({ userId: user.user_id }, secretKey, { expiresIn: '1h' });
+      console.log("토큰 보낸다", token);
       res.status(200).json({ message: 'Login successful', token, user: result[0] });
     }
   });
@@ -64,21 +66,40 @@ app.post('/login', (req, res) => {
 
 app.get('/protected', (req, res) => {
   const token = req.headers.authorization;
+  console.log("token 백엔드에서 잘 받음", token);
   if (!token) {
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
-  
+
   const tokenWithoutBearer = token.replace('Bearer ', '');
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(tokenWithoutBearer, secretKey, (err, decoded) => {
     if (err) {
+      console.error('JWT verification error:', err);
       res.status(401).json({ message: 'Token expired or invalid' });
     } else {
       // 여기서 필요한 작업 수행
-      res.status(200).json({ message: 'Protected data accessed', user: decoded.userId });
+      console.log("유저아이디 보낸다", decoded.userId);
+
+      const userId = decoded.userId;
+
+      // userId를 이용하여 DB에서 해당 유저의 정보를 조회
+      const query = 'SELECT * FROM Users WHERE user_id = ?';
+      db.query(query, [userId], (dbErr, dbResult) => {
+        if (dbErr) {
+          console.error('Database query error:', dbErr);
+          res.status(500).json({ message: 'Database error' });
+        } else if (dbResult.length === 0) {
+          res.status(404).json({ message: 'User not found' });
+        } else {
+          const user = dbResult[0];
+          res.status(200).json({ message: 'Protected data accessed', user });
+        }
+      });
     }
   });
 });
+
 
 
 app.post('/dup', (req, res) => {

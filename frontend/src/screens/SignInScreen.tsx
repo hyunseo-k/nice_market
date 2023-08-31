@@ -44,6 +44,10 @@ export default function SignInScreen(props: SignInScreenProps) {
           .then(response => response.json())
           .then(data => {
             // 여기서 data를 이용해 필요한 작업 수행
+            console.log("데이터", data);
+            setUser(data.user);
+            setUserContext(data.user);
+            navigation.navigate("OrderHistoryScreen");
           })
           .catch(error => {
             console.error(error);
