@@ -4,6 +4,9 @@ const cors = require('cors');
 const mysql = require('mysql2');
 // const { useWindowDimensions } = require('react-native-web');
 const fetch = require('node-fetch');
+const jwt = require('jsonwebtoken');
+const secretKey = 'your-secret-key';
+
 
 const app = express();
 const port = 3000; // Choose a port number
@@ -51,10 +54,32 @@ app.post('/login', (req, res) => {
     } else if (result.length === 0) {
       res.status(401).json({ message: 'Invalid credentials' });
     } else {
-      res.status(200).json({ message: 'Login successful', user: result[0] });
+      user = result[0];
+      // res.status(200).json({ message: 'Login successful', user: result[0] });
+      const token = jwt.sign({ userId: user.user_id }, secretKey, { expiresIn: '1h' });
+      res.status(200).json({ message: 'Login successful', token, user: result[0] });
     }
   });
 });
+
+app.get('/protected', (req, res) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    res.status(401).json({ message: 'Unauthorized' });
+    return;
+  }
+  
+  const tokenWithoutBearer = token.replace('Bearer ', '');
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      res.status(401).json({ message: 'Token expired or invalid' });
+    } else {
+      // 여기서 필요한 작업 수행
+      res.status(200).json({ message: 'Protected data accessed', user: decoded.userId });
+    }
+  });
+});
+
 
 app.post('/dup', (req, res) => {
     const { email } = req.body;

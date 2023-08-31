@@ -14,6 +14,7 @@ import Logo from "../../assets/Logo.png"
 // import { useDispatch } from 'react-redux';
 // import { setUser } from '../redux/actions';
 import { useUserContext } from '../../UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface SignInScreenProps {
@@ -27,6 +28,35 @@ export default function SignInScreen(props: SignInScreenProps) {
   const [fail2, setFail2] = useState(false);
   const [user, setUser] = useState<any>(null); // 사용자 정보 타입 지정
   const { setUser: setUserContext } = useUserContext();
+
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const authToken = await AsyncStorage.getItem('authToken'); // AsyncStorage에서 토큰 가져오기
+        console.log("있나", authToken);
+        if (authToken) {
+          fetch('http://34.64.33.83:3000/protected', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${authToken}`
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            // 여기서 data를 이용해 필요한 작업 수행
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        }
+      } catch (error) {
+        console.error("Error getting token:", error);
+      }
+    };
+
+    getToken(); // useEffect 내에서 getToken 함수 실행
+  }, []); // 빈 배열을 넣어 최초 렌더링 시 한 번만 실행되도록 함
+
 
   // const dispatch = useDispatch();
 
@@ -45,10 +75,14 @@ export default function SignInScreen(props: SignInScreenProps) {
       const data = await response.json();
 
       if (response.ok) {
+        const token = data.token;
+        
         // 로그인 성공
         console.log("Login successful", data);
+        
         // 여기서 필요한 동작을 수행하고 홈 화면으로 이동
         // dispatch(setUser(data.user));
+        AsyncStorage.setItem('authToken', token);
         setUser(data.user);
         setUserContext(data.user);
         navigation.navigate("Home");

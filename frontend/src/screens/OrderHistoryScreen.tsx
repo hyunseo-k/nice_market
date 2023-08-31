@@ -47,7 +47,7 @@ export default function OrderHistoryScreen(props: OrderHistoryScreenProps) {
         // keyExtractor={(item) => item.id.toString()}
       />
       <View style={styles.totalContainer}>
-        {/* <Text style={styles.totalPrice}>총 주문 건 수: {cartItems.length()} ₩</Text> */}
+        <Text style={styles.totalPrice}>총 주문 건 수: {cartDisplayItems.length} 개</Text>
       </View>
     </View>
   );

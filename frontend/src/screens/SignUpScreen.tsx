@@ -20,11 +20,30 @@ export default function SignUpScreen(props: SignUpScreenProps) {
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [fail, setFail] = useState(false);
+  const [fail2, setFail2] = useState(false);
   const [dup, setDup] = useState(true);
   const [dup2, setDup2] = useState(false);
 
+  useEffect(() => {
+    console.log("Updated fail2:", fail2);
+    console.log("Updated dup:", dup);
+  }, [fail2, dup, dup2]);
+
+  const passwordsMatch = () => {
+    return password === password2;
+  };
+
   const handleSignUp = async () => {
     try {
+      let passwordMatch = passwordsMatch();
+  
+      if (!passwordMatch) {
+        setFail2(true);
+        return;
+      } else {
+        setFail2(false);
+      }
+  
       const response = await fetch('http://34.64.33.83:3000/signup', {
         method: 'POST',
         headers: {
@@ -32,21 +51,26 @@ export default function SignUpScreen(props: SignUpScreenProps) {
         },
         body: JSON.stringify({ email, password}),
       });
+  
       
       const data = await response.json();
-      if (response.ok && dup===false) {
-        // 회원가입 성공 처리
+  
+      if (response.ok && !dup && passwordMatch) { // update here
         console.log('Sign up successful');
-        navigation.navigate('SignIn'); // 회원가입 후 로그인 화면으로 이동
+        navigation.navigate('SignIn'); 
       } else {
+        console.log("Updated fff:", fail2);
+        console.log("Updated ddd:", dup);
         console.log('Sign up failed:', data.message);
-        setFail(true);
-      }
+        
+       setFail(true); // Only set this when sign up failed
+     }
     } catch (error) {
-      console.error('Sign up error:', error);
-      setFail(true);
+     console.error('Sign up error:', error);
+     setFail(true); // Only set this when there is an error
     }
   };
+  
 
   const handleDup = async () => {
     try {
@@ -59,6 +83,7 @@ export default function SignUpScreen(props: SignUpScreenProps) {
       });
   
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
         if (data.isDuplicate) {
           // 이메일이 이미 중복되는 경우
@@ -129,6 +154,9 @@ export default function SignUpScreen(props: SignUpScreenProps) {
         style={styles.input}
         secureTextEntry={true}
       />
+      {fail2 && (
+        <Text style={styles.failText}>비밀번호와 비밀번호 확인이 일치하지 않습니다.</Text>
+      )}
       {fail && (
         <Text style={styles.failText}>회원가입에 실패했습니다.</Text>
       )}
