@@ -64,27 +64,3 @@ NicePay 결제창 API를 연동하여, 사용자가 결제를 진행할 수 있�
 
 Docker와 쿠버네티스를 이용하여 애플리케이션을 배포했습니다.
 
-## 스크린샷
-
-로그인 및 회원가입 화면, 상품 목록 화면, 장바구니 화면, 주문 내역 화면 등 다양한 화면에서의 애플리케이션 작동 모습을 확인할 수 있습니다.
-
-1. 로그인 및 회원가입
-<img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a349a9bd-eba4-486c-95c6-fb8fffbb78dc/IMG_2144.png" />
-![IMG_2144.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a349a9bd-eba4-486c-95c6-fb8fffbb78dc/IMG_2144.png)
-![IMG_2147.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b6bc14fe-ce9e-4e05-aa3c-621d08907c42/IMG_2147.png)
-![IMG_2145.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4b640297-2840-44fa-a949-edc3e23dc6a0/IMG_2145.png)
-
-2. 홈 (상품 목록 탭, 장바구니 탭, 주문 내역 탭)
-![IMG_2148.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e7aef09c-3656-447c-a15e-c83e786a2afe/IMG_2148.png)
-![IMG_2149.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/57e62d6f-9a35-4315-a72c-3e24832b38e4/IMG_2149.png)
-![IMG_2151.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e7fb836-8b83-4098-bce3-ad0ce39faee5/IMG_2151.png)
-
-3. 장바구니 수정 및 결제 
-![IMG_2154.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/86c756bb-caf9-4b16-80f8-34b1a79065b1/IMG_2154.png)
-![IMG_2155.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e41e3558-0b71-4b23-87a1-a6d035a007f7/IMG_2155.png)
-![IMG_2156.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c4095ab9-ebea-41de-828b-a51a653eea72/IMG_2156.png)
-
-4. 성공적인 결제 후 주문 내역 확인
-![IMG_2157.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/90587fb4-b6f4-4a89-b7ee-4e54e8ba51f6/IMG_2157.png)
-![IMG_2158.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f510a397-135e-4605-ac78-600e86c09478/IMG_2158.png)
-![IMG_2159.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea857e75-a9e1-4e01-850d-9415304b3247/IMG_2159.png)
