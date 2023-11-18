@@ -1,4 +1,4 @@
-![image](https://github.com/hyunseo-k/nice_market/assets/79782180/ff4a524d-47b9-48a7-866d-55f4f9445f64)#Nice Market
+# Nice Market
 NicePay 결제 시스템 연동 온라인 커머스 하이브리드 앱
 
 ## 프로젝트 개요
