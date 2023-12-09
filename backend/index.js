@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
   host: 'nice_db',
   user: 'root',
-  password: 'Rkdgustj7!',
+  password: '',
   database: 'nice',
   // insecureAuth: true,
 });
